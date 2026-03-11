@@ -115,11 +115,10 @@
             position: absolute;
             color: rgba(56, 189, 248, 0.1);
             font-size: 3rem;
-            animation: float 30s linear infinite; /* Base speed increased */
+            animation: float 30s linear infinite; 
             bottom: -100px;
         }
 
-        /* Animation durations increased significantly to slow them down */
         .floating-bg i:nth-child(1) { left: 10%; animation-duration: 36s; animation-delay: 0s; font-size: 4rem; }
         .floating-bg i:nth-child(2) { left: 30%; animation-duration: 44s; animation-delay: -5s; font-size: 2.5rem; }
         .floating-bg i:nth-child(3) { left: 50%; animation-duration: 32s; animation-delay: -10s; font-size: 5rem; }
@@ -304,11 +303,22 @@
             border-radius: 4px;
         }
 
+        /* ======= MOBILE RESPONSIVENESS (UPDATED) ======= */
         @media (max-width: 768px) {
             .nav-links { display: none; } 
+            
+            /* Resize texts for mobile */
             .hero-content h1 { font-size: 2.5rem; }
             .hero-content p { font-size: 1rem; }
-            .glass-panel, .hero-content { padding: 1.5rem; }
+            
+            /* Reduce padding on the main screen to give more room */
+            .page-section { padding: 100px 1rem 2rem 1rem; } 
+            
+            /* Reduce padding inside the glass panels */
+            .glass-panel, .hero-content { padding: 1.5rem 1rem; } 
+            
+            /* Force the grid to stack gracefully and prevent overflow */
+            .card-grid { grid-template-columns: 1fr; } 
         }
     </style>
 </head>
@@ -336,7 +346,7 @@
 
     <section id="home" class="page-section active">
         <div class="hero-content">
-           <img src="profile.jpg" alt="Craig Kuyimba" class="profile-pic">
+            <img src="profile.jpg" alt="Craig Kuyimba" class="profile-pic">
             <h1>Craig Kuyimba</h1>
             <p>IT Support | Aspiring Cybersecurity Professional </p>
             <button onclick="showPage('projects')">View My Work</button>
@@ -486,4 +496,3 @@
     </script>
 </body>
 </html>
-
