@@ -73,6 +73,14 @@
             color: var(--accent-color);
         }
 
+        /* Mobile Menu Toggle Icon */
+        .menu-toggle {
+            display: none;
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
         /* Page Sections */
         .page-section {
             display: none;
@@ -274,6 +282,7 @@
             display: flex;
             gap: 1.5rem;
             margin-bottom: 2.5rem;
+            justify-content: center; /* Centered for mobile friendliness */
         }
 
         .social-links a {
@@ -305,8 +314,33 @@
 
         /* ======= MOBILE RESPONSIVENESS (UPDATED) ======= */
         @media (max-width: 768px) {
-            .nav-links { display: none; } 
+            .menu-toggle { 
+                display: block; /* Show hamburger icon */
+            }
             
+            .nav-links { 
+                display: none; /* Hide standard links by default */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(15, 23, 42, 0.98);
+                border-bottom: 1px solid #334155;
+                padding: 1rem 0;
+                text-align: center;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+            }
+            
+            .nav-links.show-menu {
+                display: flex; /* Class added by Javascript to show menu */
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 1rem;
+            }
+
             /* Resize texts for mobile */
             .hero-content h1 { font-size: 2.5rem; }
             .hero-content p { font-size: 1rem; }
@@ -335,7 +369,12 @@
 
     <nav>
         <div class="logo">CRAIG</div>
-        <ul class="nav-links">
+        
+        <div class="menu-toggle" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="nav-links" id="nav-links">
             <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
             <li><a onclick="showPage('about')" id="nav-about">About Me</a></li>
             <li><a onclick="showPage('projects')" id="nav-projects">Projects</a></li>
@@ -465,6 +504,11 @@
     </section>
 
     <script>
+        // Function to toggle the mobile menu
+        function toggleMobileMenu() {
+            document.getElementById('nav-links').classList.toggle('show-menu');
+        }
+
         function showPage(pageId) {
             // Hide all sections
             document.querySelectorAll('.page-section').forEach(section => {
@@ -489,6 +533,9 @@
             } else {
                 floatingBg.style.display = 'block'; // Show on all other pages
             }
+
+            // Close the mobile menu automatically after a link is clicked
+            document.getElementById('nav-links').classList.remove('show-menu');
 
             // Scroll to top
             window.scrollTo(0, 0);
