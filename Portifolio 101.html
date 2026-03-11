@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craig Kuyimba | Portfolio</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(15, 23, 42, 0.98);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links li a {
+            color: var(--text-main);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+        }
+
+        .nav-links li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            padding: 120px 2rem 4rem 2rem;
+            min-height: 100vh;
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Global Floating Icons Background */
+        .floating-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1; 
+            overflow: hidden;
+            pointer-events: none; 
+        }
+
+        .floating-bg i {
+            position: absolute;
+            color: rgba(56, 189, 248, 0.1);
+            font-size: 3rem;
+            animation: float 30s linear infinite; /* Base speed increased */
+            bottom: -100px;
+        }
+
+        /* Animation durations increased significantly to slow them down */
+        .floating-bg i:nth-child(1) { left: 10%; animation-duration: 36s; animation-delay: 0s; font-size: 4rem; }
+        .floating-bg i:nth-child(2) { left: 30%; animation-duration: 44s; animation-delay: -5s; font-size: 2.5rem; }
+        .floating-bg i:nth-child(3) { left: 50%; animation-duration: 32s; animation-delay: -10s; font-size: 5rem; }
+        .floating-bg i:nth-child(4) { left: 70%; animation-duration: 50s; animation-delay: -2s; font-size: 3rem; }
+        .floating-bg i:nth-child(5) { left: 85%; animation-duration: 38s; animation-delay: -8s; font-size: 4.5rem; }
+        .floating-bg i:nth-child(6) { left: 20%; animation-duration: 42s; animation-delay: -12s; font-size: 3.5rem; }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Hero Glass Panel Style */
+        .hero-content, .glass-panel {
+            background: rgba(15, 23, 42, 0.9); 
+            padding: 3rem;
+            border-radius: 10px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            animation: slideIn 1s ease-out;
+            width: 100%;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Home Page Centering */
+        #home {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            max-width: 100%;
+            padding: 100px 2rem;
+        }
+
+        #home.active {
+            display: flex;
+        }
+
+        /* Profile Picture Styling */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--secondary-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .tags {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #0f172a;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        /* Buttons & Links */
+        button, .download-btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            text-decoration: none;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: fit-content;
+            font-size: 1rem;
+        }
+
+        button:hover, .download-btn:hover {
+            background: #0284c7;
+            color: white;
+        }
+
+        /* CV Specifics */
+        .cv-header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .cv-section {
+            margin-bottom: 2rem;
+        }
+
+        /* Contact & Form Specifics */
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            font-size: 2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--secondary-bg);
+            border: 1px solid #334155;
+            color: var(--text-main);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; } 
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1rem; }
+            .glass-panel, .hero-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-bg" id="global-floating-bg">
+        <i class="fa-solid fa-shield-halved"></i>
+        <i class="fa-solid fa-network-wired"></i>
+        <i class="fa-solid fa-code"></i>
+        <i class="fa-solid fa-lock"></i>
+        <i class="fa-solid fa-server"></i>
+        <i class="fa-solid fa-chart-line"></i>
+    </div>
+
+    <nav>
+        <div class="logo">CRAIG</div>
+        <ul class="nav-links">
+            <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+            <li><a onclick="showPage('about')" id="nav-about">About Me</a></li>
+            <li><a onclick="showPage('projects')" id="nav-projects">Projects</a></li>
+            <li><a onclick="showPage('cv')" id="nav-cv">Digital CV</a></li>
+            <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="page-section active">
+        <div class="hero-content">
+           <img src="profile.jpg" alt="Craig Kuyimba" class="profile-pic">
+            <h1>Craig Kuyimba</h1>
+            <p>IT Support | Aspiring Cybersecurity Professional </p>
+            <button onclick="showPage('projects')">View My Work</button>
+        </div>
+    </section>
+
+    <section id="about" class="page-section">
+        <div class="glass-panel">
+            <h2>About Me</h2>
+            <p>Hello! I'm Craig Kuyimba, a versatile tech professional based in Harare, Zimbabwe. With a diverse background that bridges technical support and project management, I bring a unique, multifaceted perspective to the technology landscape.</p>
+            <br>
+            <p>I am highly passionate about network infrastructure and am currently focusing on advancing my career in cybersecurity. My technical curiosity drives me to continuously learn—whether I'm configuring LANs and WANs, setting up Windows Os or MacOs, or running vulnerability assessments.</p>
+            <br>
+            <p>Beyond strict IT, I have an established background in digital marketing, SEO optimization, and content strategy, allowing me to understand how technology supports broader business growth. I thrive in environments that challenge me to solve complex problems and build secure, efficient systems.</p>
+        </div>
+    </section>
+
+    <section id="projects" class="page-section">
+        <div class="glass-panel">
+            <h2>My Projects</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Vulnerability Assessment & Network Analysis</h3>
+                    <p>Configured secure lab networks to simulate cyber threats and analyze network traffic for vulnerabilities. Gained practical experience in identifying infrastructural weak points.</p>
+                    <div class="tags">
+                        <span class="tag">Wireshark</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Cybersecurity</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Digital Marketing & SEO Campaigning</h3>
+                    <p>Designed and executed targeted digital marketing strategies focused on organic growth, SEO keyword optimization, and high-conversion financial hooks for regional ad campaigns.</p>
+                    <div class="tags">
+                        <span class="tag">SEO</span>
+                        <span class="tag">Social Media Growth</span>
+                        <span class="tag">Content Marketing</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>IT Systems & Web Development</h3>
+                    <p>Hands-on development of digital platforms including personal portfolio building and the deployment of DLNA media servers. Experience with modern front-end frameworks and system management.</p>
+                    <div class="tags">
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">Bootstrap</span>
+                        <span class="tag">windows management</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cv" class="page-section">
+        <div class="glass-panel">
+            <div class="cv-header-actions">
+                <h2 style="margin-bottom: 0;">Digital CV</h2>
+                <a href="Craig_Kuyimba_CV.pdf" download class="download-btn">
+                    <i class="fa-solid fa-file-arrow-down"></i> Download PDF
+                </a>
+            </div>
+            
+            <div class="cv-section">
+                <h3>Professional Profile</h3>
+                <p>Aspiring cyber-security and network security professional with foundational IT support expertise. Proven ability to lead projects, teach complex concepts, and execute successful digital marketing strategies.</p>
+            </div>
+
+            <div class="cv-section">
+                <h3>Core Competencies</h3>
+                <ul style="list-style-position: inside; color: var(--text-muted); margin-top: 10px;">
+                    <li><strong>Security & Networking:</strong> LANs & WANs, Vulnerability Assessments, Wireshark, Python</li>
+                    <li><strong>IT Administration:</strong> System Troubleshooting, Ticketing Systems (Zendesk), Media Servers</li>
+                    <li><strong>Web & Digital:</strong> HTML/CSS, Bootstrap, Web Development</li>
+                    <li><strong>Business & Strategy:</strong> Project Management, Teaching/Mentoring, SEO, Digital Marketing</li>
+                </ul>
+            </div>
+            
+            <div class="cv-section">
+                <h3>Professional Experience Highlights</h3>
+                <div class="card" style="margin-top: 10px;">
+                    <h4>Packrite Zimbabwe – System Administrator</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Harare, Zimbabwe</p>
+                    <ul style="list-style-position: inside; margin-top: 10px; color: var(--text-main);">
+                        <li>Managed and maintained the organization’s hardware .</li>
+                        <li>Installed new and advanced software and troubleshoot operating systems.</li>
+                        <li>Apply digital marketing expertise to optimize online presence and drive organic engagement.</li>
+                        <li>Develop and implement educational materials and technical documentation.</li>
+                        <li>Diagnosed and fixed network related issues.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="page-section">
+        <h2>Get In Touch</h2>
+        <p style="margin-bottom: 1.5rem;">Interested in collaborating on a project, discussing cybersecurity, or just want to say hi? Send me a message or connect with me on social media!</p>
+        
+        <div class="social-links">
+            <a href="https://www.instagram.com/unearthical?igsh=ODg4NGYyMzJ4YTZj" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/share/1818Etddgr/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://wa.me/263784142276" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+        
+        <form action="https://formspree.io/f/mpqypvny" method="POST">
+            <div>
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div>
+                <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit">Send Message <i class="fa-solid fa-paper-plane" style="margin-left: 5px;"></i></button>
+        </form>
+    </section>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show the selected section
+            document.getElementById(pageId).classList.add('active');
+            
+            // Highlight the active nav link
+            document.getElementById('nav-' + pageId).classList.add('active');
+            
+            // Handle global floating background
+            const floatingBg = document.getElementById('global-floating-bg');
+            if (pageId === 'contact') {
+                floatingBg.style.display = 'none'; // Hide on Contact page
+            } else {
+                floatingBg.style.display = 'block'; // Show on all other pages
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
